@@ -1,8 +1,7 @@
 # Online Learning Platform
   
-This is a project built with [Chef](https://chef.convex.dev) using [Convex](https://convex.dev) as its backend.
- You can find docs about Chef with useful information like how to deploy to production [here](https://docs.convex.dev/chef).
-  
+This is a project built using [Convex](https://convex.dev) as its backend.
+
 This project is connected to the Convex deployment named [`modest-guineapig-379`](https://dashboard.convex.dev/d/modest-guineapig-379).
   
 ## Project structure
