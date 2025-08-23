@@ -1,8 +1,15 @@
-# 🎓 LearnHub - Online Learning Platform
+# Online Learning Platform
 
 A modern, interactive online learning platform built with **React** and **Convex**. Features include course creation, interactive quizzes, file uploads, progress tracking, and real-time synchronization.
 
-![LearnHub Demo](https://via.placeholder.com/800x400/4F46E5/FFFFFF?text=LearnHub+Demo)
+![Login/Signup Page](<images/Screenshot 2025-08-23 123708.png>)
+
+![Student Dashboard](<images/Screenshot 2025-08-23 123852.png>)
+![](<images/Screenshot 2025-08-23 123938.png>)
+
+![Instructor Dashboard](<images/Screenshot 2025-08-23 124018.png>)
+![](<images/Screenshot 2025-08-23 124037.png>)
+
 
 ## ✨ Features
 
@@ -96,34 +103,6 @@ The frontend code is in the `app` directory and is built with [Vite](https://vit
 The backend code is in the `convex` directory.
   
 `npm run dev` will start the frontend and backend servers.
-
-learnhub/
-├── src/ # Frontend React application
-│ ├── components/ # React components
-│ │ ├── CourseCard.tsx # Course display cards
-│ │ ├── StudentDashboard.tsx # Student interface
-│ │ ├── InstructorDashboard.tsx # Instructor interface
-│ │ ├── LectureViewer.tsx # Lecture content viewer
-│ │ └── ... # Other components
-│ ├── lib/ # Utility functions
-│ ├── App.tsx # Main app component
-│ ├── main.tsx # App entry point
-│ └── index.css # Global styles & animations
-│
-├── convex/ # Backend functions & schema
-│ ├── schema.ts # Database schema definition
-│ ├── auth.config.ts # Authentication configuration
-│ ├── courses.ts # Course-related functions
-│ ├── lectures.ts # Lecture management functions
-│ ├── progress.ts # Progress tracking functions
-│ ├── users.ts # User management functions
-│ └── _generated/ # Auto-generated types & API
-│
-├── .env.local # Environment variables (auto-generated)
-├── package.json # Dependencies and scripts
-├── vite.config.ts # Vite configuration
-├── tailwind.config.js # Tailwind CSS configuration
-└── README.md # This file
 
 
 ## 🔧 Available Scripts
@@ -245,38 +224,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 
 Happy coding! 💻✨
-
-
-
-
-
-
-
-# Online Learning Platform
-  
-This is a project built using [Convex](https://convex.dev) as its backend.
-
-This project is connected to the Convex deployment named [`modest-guineapig-379`](https://dashboard.convex.dev/d/modest-guineapig-379).
-  
-## Project structure
-  
-The frontend code is in the `app` directory and is built with [Vite](https://vitejs.dev/).
-  
-The backend code is in the `convex` directory.
-  
-`npm run dev` will start the frontend and backend servers.
-
-## App authentication
-
-Chef apps use [Convex Auth](https://auth.convex.dev/) with Anonymous auth for easy sign in. You may wish to change this before deploying your app.
-
-## Developing and deploying your app
-
-Check out the [Convex docs](https://docs.convex.dev/) for more information on how to develop with Convex.
-* If you're new to Convex, the [Overview](https://docs.convex.dev/understanding/) is a good place to start
-* Check out the [Hosting and Deployment](https://docs.convex.dev/production/) docs for how to deploy your app
-* Read the [Best Practices](https://docs.convex.dev/understanding/best-practices/) guide for tips on how to improve you app further
-
-## HTTP API
-
-User-defined http routes are defined in the `convex/router.ts` file. We split these routes into a separate file from `convex/http.ts` to allow us to prevent the LLM from modifying the authentication routes.
