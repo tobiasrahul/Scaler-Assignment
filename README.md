@@ -2,7 +2,7 @@
 
 A modern, interactive online learning platform built with **React** and **Convex**. Features include course creation, interactive quizzes, file uploads, progress tracking, and real-time synchronization.
 
-![Login/Signup Page](<images/Screenshot 2025-08-23 123708.png>)
+![Login/Signup Page](<images/Screenshot 2025-08-23 233720.png>)
 
 ![Student Dashboard](<images/Screenshot 2025-08-23 123852.png>)
 ![](<images/Screenshot 2025-08-23 123938.png>)
