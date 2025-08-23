@@ -21,7 +21,8 @@ export const enrollInCourse = mutation({
       .unique();
 
     if (existingEnrollment) {
-      throw new Error("Already enrolled in this course");
+      // Don't throw error - just return the existing enrollment
+      return existingEnrollment._id;
     }
 
     return await ctx.db.insert("enrollments", {
