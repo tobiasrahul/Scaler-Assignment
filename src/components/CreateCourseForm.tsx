@@ -12,6 +12,7 @@ export function CreateCourseForm() {
 
   const createCourse = useMutation(api.courses.createCourse);
 
+  // Updated categories to match student dashboard filters
   const categories = [
     "Programming",
     "Design", 
@@ -104,6 +105,9 @@ export function CreateCourseForm() {
                 <option key={cat} value={cat}>{cat}</option>
               ))}
             </select>
+            <p className="text-xs text-gray-500 mt-1">
+              Choose a category to help students find your course more easily
+            </p>
           </div>
 
           <div>
@@ -117,6 +121,9 @@ export function CreateCourseForm() {
               className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
               placeholder="https://example.com/image.jpg"
             />
+            <p className="text-xs text-gray-500 mt-1">
+              Add an attractive course thumbnail to increase enrollment
+            </p>
           </div>
         </div>
 

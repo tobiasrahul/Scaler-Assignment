@@ -4,7 +4,6 @@ import { api } from "../../convex/_generated/api";
 import { CourseCard } from "./CourseCard";
 import { CourseViewer } from "./CourseViewer";
 import { Id } from "../../convex/_generated/dataModel";
-import { isEnrolledInCourse } from "../../convex/enrollments";
 
 export function StudentDashboard() {
   const [selectedCourseId, setSelectedCourseId] = useState<Id<"courses"> | null>(null);
@@ -17,30 +16,104 @@ export function StudentDashboard() {
   // Always call all hooks first before any conditional returns
   const courses = useQuery(api.courses.getAllCourses);
 
-  // Categories with better filtering logic
+  // Updated categories with all available options
   const categories = [
     { id: "all", name: "All Courses", icon: "📚" },
     { id: "programming", name: "Programming", icon: "💻" },
     { id: "design", name: "Design", icon: "🎨" },
     { id: "business", name: "Business", icon: "💼" },
+    { id: "marketing", name: "Marketing", icon: "📈" },
     { id: "science", name: "Science", icon: "🔬" },
+    { id: "mathematics", name: "Mathematics", icon: "🔢" },
+    { id: "language", name: "Language", icon: "🗣️" },
+    { id: "art", name: "Art", icon: "🎭" },
+    { id: "music", name: "Music", icon: "🎵" },
+    { id: "health", name: "Health & Fitness", icon: "💪" },
+    { id: "general", name: "General", icon: "📖" }
   ];
 
-  // Categorize courses based on keywords in title/description
+  // Enhanced categorization function
   const getCourseCategory = (course: any) => {
+    // First check if course has an explicit category field
+    if (course.category) {
+      const category = course.category.toLowerCase().replace(/\s+/g, '').replace('&', '');
+      
+      // Map course categories to filter categories
+      const categoryMappings = {
+        'programming': 'programming',
+        'design': 'design', 
+        'business': 'business',
+        'marketing': 'marketing',
+        'science': 'science',
+        'mathematics': 'mathematics',
+        'math': 'mathematics',
+        'language': 'language',
+        'art': 'art',
+        'music': 'music',
+        'healthfitness': 'health',
+        'health': 'health',
+        'fitness': 'health'
+      } as const;
+      
+      // Check for exact matches first
+      if (category in categoryMappings) {
+        return categoryMappings[category as keyof typeof categoryMappings];
+      }
+      
+      // Check for partial matches
+      for (const [key, value] of Object.entries(categoryMappings)) {
+        if (category.includes(key)) {
+          return value;
+        }
+      }
+    }
+    
+    // Fallback to text analysis if no category field or no match
     const text = (course.title + " " + course.description).toLowerCase();
-    if (text.includes('programming') || text.includes('code') || text.includes('javascript') || text.includes('python') || text.includes('web') || text.includes('software')) {
+    
+    if (text.includes('programming') || text.includes('code') || text.includes('javascript') || 
+        text.includes('python') || text.includes('web') || text.includes('software') || 
+        text.includes('react') || text.includes('html') || text.includes('css') || 
+        text.includes('development')) {
       return 'programming';
     }
-    if (text.includes('design') || text.includes('ui') || text.includes('ux') || text.includes('graphic') || text.includes('visual')) {
+    if (text.includes('design') || text.includes('ui') || text.includes('ux') || 
+        text.includes('graphic') || text.includes('visual') || text.includes('photoshop')) {
       return 'design';
     }
-    if (text.includes('business') || text.includes('management') || text.includes('marketing') || text.includes('finance') || text.includes('entrepreneur')) {
+    if (text.includes('business') || text.includes('management') || text.includes('finance') || 
+        text.includes('entrepreneur') || text.includes('startup')) {
       return 'business';
     }
-    if (text.includes('science') || text.includes('physics') || text.includes('chemistry') || text.includes('biology') || text.includes('math')) {
+    if (text.includes('marketing') || text.includes('seo') || text.includes('advertising') || 
+        text.includes('social media') || text.includes('branding')) {
+      return 'marketing';
+    }
+    if (text.includes('science') || text.includes('physics') || text.includes('chemistry') || 
+        text.includes('biology') || text.includes('research')) {
       return 'science';
     }
+    if (text.includes('mathematics') || text.includes('math') || text.includes('algebra') || 
+        text.includes('calculus') || text.includes('statistics')) {
+      return 'mathematics';
+    }
+    if (text.includes('language') || text.includes('english') || text.includes('spanish') || 
+        text.includes('french') || text.includes('grammar')) {
+      return 'language';
+    }
+    if (text.includes('art') || text.includes('drawing') || text.includes('painting') || 
+        text.includes('sculpture') || text.includes('creative')) {
+      return 'art';
+    }
+    if (text.includes('music') || text.includes('sing') || text.includes('guitar') || 
+        text.includes('piano') || text.includes('instrument')) {
+      return 'music';
+    }
+    if (text.includes('health') || text.includes('fitness') || text.includes('yoga') || 
+        text.includes('exercise') || text.includes('nutrition')) {
+      return 'health';
+    }
+    
     return 'general';
   };
 
@@ -55,13 +128,13 @@ export function StudentDashboard() {
     ).slice(0, 5); // Show max 5 suggestions
   }, [courses, searchTerm]);
 
-  // Filter courses based on search term and category
+  // Fixed filter logic for courses
   const filteredCourses = useMemo(() => {
     if (!courses) return [];
     
     let filtered = courses;
     
-    // Apply search filter
+    // Apply search filter first
     if (searchTerm.trim()) {
       filtered = filtered.filter(course =>
         course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -72,7 +145,10 @@ export function StudentDashboard() {
     
     // Apply category filter
     if (selectedCategory !== "all") {
-      filtered = filtered.filter(course => getCourseCategory(course) === selectedCategory);
+      filtered = filtered.filter(course => {
+        const courseCategory = getCourseCategory(course);
+        return courseCategory === selectedCategory;
+      });
     }
     
     return filtered;
@@ -262,7 +338,7 @@ export function StudentDashboard() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6">
-        {/* Category Filter */}
+        {/* Category Filter - Updated with more categories */}
         <div className="mb-8">
           <div className="flex flex-wrap gap-3 justify-center">
             {categories.map((category) => {
@@ -295,6 +371,7 @@ export function StudentDashboard() {
           </div>
         </div>
 
+
         {/* Stats Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
@@ -326,7 +403,6 @@ export function StudentDashboard() {
               </div>
             </div>
           </div>
-          
         </div>
 
         {/* Courses Section */}
