@@ -32,7 +32,7 @@ export function InstructorDashboard() {
           {[
             { id: "courses", name: "My Courses", icon: "📚", count: courses?.length || 0 },
             { id: "create", name: "Create Course", icon: "➕", count: null },
-            { id: "analytics", name: "Analytics", icon: "📊", count: null }
+            
           ].map((tab) => (
             <button
               key={tab.id}
@@ -55,7 +55,7 @@ export function InstructorDashboard() {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 flex justify-center md:grid-cols-3 gap-6 mb-8">
           <div className="bg-gradient-to-br from-purple-500 to-purple-600 text-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
             <div className="flex items-center">
               <div className="text-3xl mr-4">📚</div>
@@ -83,15 +83,7 @@ export function InstructorDashboard() {
               </div>
             </div>
           </div>
-          <div className="bg-gradient-to-br from-orange-500 to-orange-600 text-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
-            <div className="flex items-center">
-              <div className="text-3xl mr-4">⭐</div>
-              <div>
-                <div className="text-2xl font-bold">4.9</div>
-                <div className="text-orange-100">Average Rating</div>
-              </div>
-            </div>
-          </div>
+          
         </div>
 
         {/* Content based on active tab */}

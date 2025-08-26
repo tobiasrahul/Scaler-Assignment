@@ -4,6 +4,7 @@ import { api } from "../../convex/_generated/api";
 import { CourseCard } from "./CourseCard";
 import { CourseViewer } from "./CourseViewer";
 import { Id } from "../../convex/_generated/dataModel";
+import { isEnrolledInCourse } from "../../convex/enrollments";
 
 export function StudentDashboard() {
   const [selectedCourseId, setSelectedCourseId] = useState<Id<"courses"> | null>(null);
@@ -295,7 +296,7 @@ export function StudentDashboard() {
         </div>
 
         {/* Stats Section */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
             <div className="flex items-center">
               <div className="text-3xl mr-4">📚</div>
@@ -325,15 +326,7 @@ export function StudentDashboard() {
               </div>
             </div>
           </div>
-          <div className="bg-gradient-to-br from-orange-500 to-orange-600 text-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
-            <div className="flex items-center">
-              <div className="text-3xl mr-4">⭐</div>
-              <div>
-                <div className="text-2xl font-bold">4.8</div>
-                <div className="text-orange-100">Average Rating</div>
-              </div>
-            </div>
-          </div>
+          
         </div>
 
         {/* Courses Section */}
@@ -347,15 +340,6 @@ export function StudentDashboard() {
                   : `${categories.find(c => c.id === selectedCategory)?.name} Courses (${filteredCourses.length})`
               }
             </h2>
-            <div className="flex items-center text-gray-600">
-              <span className="mr-2">Sort by:</span>
-              <select className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                <option>Newest</option>
-                <option>Most Popular</option>
-                <option>Highest Rated</option>
-                <option>A-Z</option>
-              </select>
-            </div>
           </div>
           
           {filteredCourses.length === 0 ? (
